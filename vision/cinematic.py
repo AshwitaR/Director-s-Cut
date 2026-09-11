@@ -66,7 +66,7 @@ CINEMATIC_MODES = {
         "id": "THINKING",
         "action": "THINKING",
         "genre": "DETECTIVE NOIR",
-        "bgm_pool": ["meeshamadhavan.mp3", "bg4.mp3", "ramasami.mp3"],
+        "bgm_pool": ["meeshamadhavan.mp3", "bg4.mp3", "ramasami.mp3", "neekolavalo.mp3"],
         "captions": [
             "The Thinker has entered the chat.",
             "Solving the world's problems right here.",
@@ -74,14 +74,14 @@ CINEMATIC_MODES = {
             "Plotting his next cinematic mastermind move."
         ],
         "drama_meter": 90,
-        "vfx_class": "vfx-suspense",
+        "vfx_class": "vfx-thinking",
         "meme": "suspicious.png"
     },
     "DRINKING_WATER": {
         "id": "DRINKING_WATER",
         "action": "DRINKING WATER",
         "genre": "SLOW-MOTION ROMANCE",
-        "bgm_pool": ["kattipudu.mp3", "neekolavalo.mp3"],
+        "bgm_pool": ["kattipudu.mp3", "neekolavalo.mp3", "Ladies and gentlement.mp3"],
         "captions": [
             "Taking a sip like he's in a cologne commercial.",
             "Hydrated and unnecessarily dramatic.",
@@ -96,7 +96,7 @@ CINEMATIC_MODES = {
         "id": "HAND_ON_HEART",
         "action": "HAND ON HEART",
         "genre": "DRAMATIC ALLEGIANCE",
-        "bgm_pool": ["kattipudu.mp3", "arkum tholkate.mp3", "Ladies and gentlement.mp3"],
+        "bgm_pool": ["kattipudu.mp3", "arkum tholkate.mp3", "Ladies and gentlement.mp3", "meeshamadhavan.mp3"],
         "captions": [
             "An emotional allegiance to the cinematic arts.",
             "Feel the sheer, unbridled sincerity.",
@@ -111,22 +111,22 @@ CINEMATIC_MODES = {
         "id": "STANDING_UP",
         "action": "STANDING UP",
         "genre": "HERO ASCENSION",
-        "bgm_pool": ["puthiyamukham.mp3", "arkum tholkate.mp3", "meeshamadhavan.mp3"],
+        "bgm_pool": ["puthiyamukham.mp3", "arkum tholkate.mp3", "meeshamadhavan.mp3", "Ladies and gentlement.mp3"],
         "captions": [
             "HE HAS RISEN.",
             "Standing up like a superhero in the third act.",
             "Power levels exceeding maximum.",
             "The movie budget just doubled."
         ],
-        "drama_meter": 93,
-        "vfx_class": "vfx-sitting",
+        "drama_meter": 95,
+        "vfx_class": "vfx-stand",
         "meme": "dramatic.png"
     },
     "SITTING_DOWN": {
         "id": "SITTING_DOWN",
         "action": "SITTING DOWN",
         "genre": "MAIN CHARACTER ENERGY",
-        "bgm_pool": ["meeshamadhavan.mp3", "ramasami.mp3", "Ladies and gentlement.mp3"],
+        "bgm_pool": ["meeshamadhavan.mp3", "ramasami.mp3", "Ladies and gentlement.mp3", "bg4.mp3"],
         "captions": [
             "Bro sat down like a mafia boss.",
             "Chair secured. Zero regrets.",
@@ -154,9 +154,23 @@ CINEMATIC_MODES = {
     }
 }
 
+LAST_PLAYED_TRACKS = {}
+
 def get_cinematic_scene(action_name):
-    """Maps an action to its cinematic package with random shuffled music & comical caption."""
+    """Maps an action to its cinematic package with random non-repeating shuffled music & comical caption."""
     mode_data = CINEMATIC_MODES.get(action_name, CINEMATIC_MODES["SITTING_DOWN"]).copy()
     mode_data["caption"] = random.choice(mode_data["captions"])
-    mode_data["bgm"] = random.choice(mode_data.get("bgm_pool", ["ramasami.mp3"]))
+    
+    pool = mode_data.get("bgm_pool", ["ramasami.mp3"])
+    last_track = LAST_PLAYED_TRACKS.get(action_name)
+    
+    # Pick a random track from the pool, avoiding repeating the immediate last played track if multiple choices exist
+    if len(pool) > 1 and last_track in pool:
+        choices = [t for t in pool if t != last_track]
+        chosen_track = random.choice(choices)
+    else:
+        chosen_track = random.choice(pool)
+        
+    LAST_PLAYED_TRACKS[action_name] = chosen_track
+    mode_data["bgm"] = chosen_track
     return mode_data

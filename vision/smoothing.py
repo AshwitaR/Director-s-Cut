@@ -40,7 +40,7 @@ class ActionStabilizer:
             scene_changed = True
         elif dominant_action != self.current_action:
             # Intentional gestures and boundary events bypass cooldown for crisp response
-            instant_actions = ("EXIT", "ENTRY", "RAISING_HAND", "BOTH_HANDS_UP", "DRINKING_WATER", "HANDS_ON_HEAD")
+            instant_actions = ("EXIT", "ENTRY", "RAISING_HAND", "BOTH_HANDS_UP", "DRINKING_WATER", "HANDS_ON_HEAD", "THINKING", "STANDING_UP", "HAND_ON_HEART")
             can_transition = (not in_cooldown) or (dominant_action in instant_actions)
             if agreement_ratio >= self.min_agreement_ratio and can_transition:
                 self.current_action = dominant_action

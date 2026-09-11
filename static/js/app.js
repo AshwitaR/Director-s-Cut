@@ -422,16 +422,18 @@ function shiftAmbientGlow(action) {
     glow.style.background = "radial-gradient(circle, rgba(245, 183, 0, 0.16) 0%, rgba(255, 132, 0, 0.06) 50%, transparent 70%)";
   } else if (action === "DRINKING_WATER" || action === "HAND_ON_HEART") {
     glow.style.background = "radial-gradient(circle, rgba(255, 64, 113, 0.16) 0%, rgba(255, 105, 180, 0.05) 50%, transparent 70%)";
-  } else if (action === "RAISING_HAND" || action === "THINKING") {
-    glow.style.background = "radial-gradient(circle, rgba(0, 242, 254, 0.15) 0%, rgba(0, 100, 200, 0.05) 50%, transparent 70%)";
+  } else if (action === "RAISING_HAND") {
+    glow.style.background = "radial-gradient(circle, rgba(0, 242, 254, 0.18) 0%, rgba(0, 100, 200, 0.06) 50%, transparent 70%)";
+  } else if (action === "THINKING") {
+    glow.style.background = "radial-gradient(circle, rgba(42, 82, 152, 0.25) 0%, rgba(30, 60, 114, 0.10) 50%, transparent 70%)";
   } else if (action === "HANDS_ON_HEAD") {
-    glow.style.background = "radial-gradient(circle, rgba(255, 75, 43, 0.18) 0%, rgba(255, 65, 108, 0.06) 50%, transparent 70%)";
+    glow.style.background = "radial-gradient(circle, rgba(255, 75, 43, 0.20) 0%, rgba(255, 65, 108, 0.08) 50%, transparent 70%)";
   } else if (action === "STANDING_UP") {
-    glow.style.background = "radial-gradient(circle, rgba(255, 140, 0, 0.16) 0%, rgba(255, 180, 0, 0.05) 50%, transparent 70%)";
+    glow.style.background = "radial-gradient(circle, rgba(255, 140, 0, 0.28) 0%, rgba(255, 65, 108, 0.12) 50%, transparent 70%)";
   } else if (action === "SITTING_DOWN") {
     glow.style.background = "radial-gradient(circle, rgba(245, 183, 0, 0.10) 0%, rgba(255, 132, 0, 0.03) 50%, transparent 70%)";
   } else if (action === "EXIT") {
-    glow.style.background = "radial-gradient(circle, rgba(80, 80, 80, 0.16) 0%, rgba(0, 0, 0, 0.12) 50%, transparent 70%)";
+    glow.style.background = "radial-gradient(circle, rgba(80, 80, 80, 0.18) 0%, rgba(0, 0, 0, 0.14) 50%, transparent 70%)";
   }
 }
 

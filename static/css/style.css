@@ -257,6 +257,52 @@ body {
   100% { transform: scale(1.06); }
 }
 
+/* Brand Title with Meme Cats */
+.brand-title-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  position: relative;
+  margin: 4px 0 10px;
+}
+
+.title-cat {
+  width: 96px;
+  height: 96px;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 15px rgba(255, 182, 193, 0.35));
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  pointer-events: auto;
+}
+
+.title-cat.cat-left {
+  animation: catFloatLeft 2.8s infinite ease-in-out;
+}
+
+.title-cat.cat-right {
+  animation: catFloatRight 2.8s infinite ease-in-out;
+}
+
+@keyframes catFloatLeft {
+  0%, 100% { transform: translateY(0px) rotate(-5deg); }
+  50% { transform: translateY(-10px) rotate(3deg); }
+}
+
+@keyframes catFloatRight {
+  0%, 100% { transform: scaleX(-1) translateY(0px) rotate(-5deg); }
+  50% { transform: scaleX(-1) translateY(-10px) rotate(3deg); }
+}
+
+.brand-title-wrapper:hover .title-cat.cat-left {
+  transform: scale(1.18) rotate(-12deg);
+}
+
+.brand-title-wrapper:hover .title-cat.cat-right {
+  transform: scaleX(-1) scale(1.18) rotate(-12deg);
+}
+
 .brand-title {
   font-family: var(--font-serif);
   font-size: clamp(38px, 6vw, 54px);
@@ -480,6 +526,35 @@ body {
 .vfx-sitting #webcam {
   transform: scaleX(-1) scale(1.04);
   filter: contrast(115%) saturate(120%);
+}
+
+/* 5. STANDING UP / HERO ASCENSION (Dramatic upward amber rays & low-angle hero push) */
+.vfx-stand #vfxOverlay {
+  background: radial-gradient(ellipse at center bottom, rgba(255, 140, 0, 0.38) 0%, rgba(255, 65, 108, 0.16) 45%, transparent 75%);
+  box-shadow: inset 0 -60px 120px rgba(255, 140, 0, 0.55), inset 0 0 90px rgba(255, 215, 0, 0.35);
+  animation: heroAscendRays 1.4s infinite alternate ease-in-out;
+}
+@keyframes heroAscendRays {
+  0% { opacity: 0.75; transform: scaleY(0.98); }
+  100% { opacity: 1.0; transform: scaleY(1.02); }
+}
+.vfx-stand #webcam {
+  transform: scaleX(-1) translateY(-14px) scale(1.06);
+  filter: contrast(130%) saturate(140%) brightness(112%);
+}
+
+/* 6. THINKING / DETECTIVE NOIR */
+.vfx-thinking #vfxOverlay {
+  background: radial-gradient(circle, transparent 40%, rgba(30, 60, 114, 0.35) 100%);
+  box-shadow: inset 0 0 100px rgba(42, 82, 152, 0.5);
+  animation: thinkingPulse 2.2s infinite alternate ease-in-out;
+}
+@keyframes thinkingPulse {
+  0% { opacity: 0.7; }
+  100% { opacity: 1.0; }
+}
+.vfx-thinking #webcam {
+  filter: contrast(120%) saturate(85%) brightness(96%);
 }
 
 
