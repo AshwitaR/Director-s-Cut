@@ -2,47 +2,44 @@
 
 
 
-# [Project Name] 🎯
+# Director's Cut 🎯
 
 
 ## Basic Details
-### Team Name: [Name]
+### Team Name: Eridians
 
 
 ### Team Members
-- Team Lead: [Name] - [College]
-- Member 2: [Name] - [College]
-- Member 3: [Name] - [College]
+- Member 1: Abhirami P - College of Engineering Chengannur (CEC)
+- Member 2: Ashwita Rajesh - College of Engineering Chengannur (CEC)
+
 
 ### Project Description
-[2-3 lines about what your project does]
+What if doing absolutely nothing important could still look like a whole movie scene? Director's Cut uses your webcam to detect everyday actions and turns them into unnecessarily dramatic moments with music, captions, memes, and effects.
 
 ### The Problem (that doesn't exist)
-[What ridiculous problem are you solving?]
+You entered a room. You drank water. You sat down. Nothing happened. No background score. No dramatic zoom. No main-character moment. Honestly, unacceptable.
 
 ### The Solution (that nobody asked for)
-[How are you solving it? Keep it fun!]
+Director's Cut watches what you're doing through the webcam and decides when your ordinary life deserves some cinema. Raise your hand, grab some water, sit down, laugh, enter, or leave, and the system takes care of the unnecessary drama automatically.
 
 ## Technical Details
 ### Technologies/Components Used
 For Software:
-- [Languages used]
-- [Frameworks used]
-- [Libraries used]
-- [Tools used]
+- Python, JavaScript, HTML5, CSS3
+- Flask
+- MediaPipe, OpenCV, NumPy
+- Git, Modern Web Browser, Web Audio API, MediaDevices API
 
 For Hardware:
-- [List main components]
-- [List specifications]
-- [List tools required]
+- Laptop with webcam
+- Built-in webcam
+- No additional hardware tools required
 
-### Implementation
-For Software:
-# Installation
-[commands]
+
 
 # Run
-[commands]
+python app.py
 
 ### Project Documentation
 For Software:
@@ -98,6 +95,3 @@ Made with ❤️ at TinkerHub Useless Projects
 
 ![Static Badge](https://img.shields.io/badge/TinkerHub-24?color=%23000000&link=https%3A%2F%2Fwww.tinkerhub.org%2F)
 ![Static Badge](https://img.shields.io/badge/UselessProjects--26-26?link=https%3A%2F%2Ftinkerhub.org%2Fevents%2F1M8ORET9A1%2Fuseless-projects-3.0)
-
-
-
