@@ -96,15 +96,16 @@ function playCinematicSoundtrack(trackFilename, genreName, forcePlay = false) {
   }
 
   currentBgmTrack = trackFilename;
-  soundtrackName.textContent = `${genreName} Track`;
+  const cleanTitle = trackFilename.replace(/\.[^/.]+$/, "");
+  soundtrackName.textContent = `${cleanTitle} • ${genreName}`;
 
   if (isAudioMuted) {
     bgmAudio.pause();
     return;
   }
 
-  // Load from static/music/ with cache-busting timestamp
-  bgmAudio.src = `/static/music/${trackFilename}?t=${Date.now()}`;
+  // Load from static/music/ with proper encoding and cache-busting timestamp
+  bgmAudio.src = `/static/music/${encodeURIComponent(trackFilename)}?t=${Date.now()}`;
   bgmAudio.volume = 0.85;
 
   const playPromise = bgmAudio.play();

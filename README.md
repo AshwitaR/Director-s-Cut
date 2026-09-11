@@ -8,37 +8,37 @@ Director's Cut is a local web application built for hackathons. It watches a per
 
 ## 🎭 The 10 Cinematic Actions
 
-The application automatically identifies 10 distinct actions using geometric MediaPipe Pose tracking and triggers their cinematic treatment with shuffled music and comical captions:
+The application automatically identifies 10 distinct actions using geometric MediaPipe Pose tracking and triggers their cinematic treatment with your 10 custom BGMs in mixed form and comical captions:
 
 1. **`ENTRY`** ➔ **Grand Entrance**  
-   *Music pool:* `entry.mp3` (`ramasami.mp3`), `hero.mp3`  
+   *Music pool:* `ramasami.mp3`, `Ladies and gentlement.mp3`, `meeshamadhavan.mp3`  
    *Captions:* "A wild main character appeared!", "Main character aura: 1000%."
-2. **`BOTH HANDS UP`** ➔ **World Champion Victory (Rocky)**  
-   *Music pool:* `track_victory.mp3`, `hero.mp3`  
+2. **`BOTH HANDS UP`** ➔ **World Champion Victory**  
+   *Music pool:* `arkum tholkate.mp3`, `Ladies and gentlement.mp3`, `puthiyamukham.mp3`  
    *Captions:* "HE'S THE CHAMPION OF THE WORLD!", "Rocky training montage unlocked."
 3. **`RAISING HAND`** ➔ **Spider-Man Theme / Suspense**  
-   *Music pool:* `raising_hand.mp3` (`spidy.mp3`), `suspense.mp3`  
+   *Music pool:* `spidy.mp3`, `puthiyamukham.mp3`, `bg4.mp3`  
    *Captions:* "Bro thinks he has web-shooters.", "Spider-Man stretch activated."
 4. **`HANDS ON HEAD`** ➔ **Existential Shock / Plot Twist**  
-   *Music pool:* `track_shock.mp3`, `suspense.mp3`  
+   *Music pool:* `neekolavalo.mp3`, `bg4.mp3`, `spidy.mp3`  
    *Captions:* "MIND = COMPLETELY BLOWN.", "Bro just remembered he left the stove on."
-5. **`THINKING`** ➔ **Detective Noir / The Thinker**  
-   *Music pool:* `track_thinking.mp3`, `suspense.mp3`  
+5. **`THINKING`** ➔ **Detective Noir / Mastermind**  
+   *Music pool:* `meeshamadhavan.mp3`, `bg4.mp3`, `ramasami.mp3`  
    *Captions:* "The Thinker has entered the chat.", "Brain cells operating at 110% capacity."
 6. **`DRINKING WATER`** ➔ **Slow-Motion Romance**  
-   *Music pool:* `drinking_water.mp3`, `romance.mp3`  
+   *Music pool:* `kattipudu.mp3`, `neekolavalo.mp3`  
    *Captions:* "Taking a sip like he's in a cologne commercial.", "Hydrated and unnecessarily dramatic."
 7. **`HAND ON HEART`** ➔ **Dramatic Allegiance / Oath**  
-   *Music pool:* `track_heart.mp3`, `romance.mp3`  
+   *Music pool:* `kattipudu.mp3`, `arkum tholkate.mp3`, `Ladies and gentlement.mp3`  
    *Captions:* "An emotional allegiance to the cinematic arts.", "Pledging loyalty to the snack cabinet."
 8. **`STANDING UP`** ➔ **Hero Ascension (Act 3)**  
-   *Music pool:* `track_stand.mp3`, `action.mp3`  
+   *Music pool:* `puthiyamukham.mp3`, `arkum tholkate.mp3`, `meeshamadhavan.mp3`  
    *Captions:* "HE HAS RISEN.", "Standing up like a superhero in the third act."
 9. **`SITTING DOWN`** ➔ **Main Character Energy / Mafia Boss**  
-   *Music pool:* `sitting_down.mp3`, `hero.mp3`  
+   *Music pool:* `meeshamadhavan.mp3`, `ramasami.mp3`, `Ladies and gentlement.mp3`  
    *Captions:* "Bro sat down like a mafia boss.", "Chair secured. Zero regrets."
 10. **`EXIT`** ➔ **Tragic Farewell / Ghosted**  
-    *Music pool:* `exit.mp3`, `tragedy.mp3`  
+    *Music pool:* `exit.mp3`, `bg4.mp3`, `ramasami.mp3`  
     *Captions:* "And bro just dipped.", "Gone. Reduced to atoms."
 
 ---
@@ -49,25 +49,23 @@ The application automatically identifies 10 distinct actions using geometric Med
 
 ---
 
-## 🎵 Multi-Track Shuffled Music Engine & Adding Your Songs
+## 🎵 Your 10 Custom Soundtracks in Mixed Form
 
-All soundtracks are loaded dynamically from **`static/music/`**. Each action has a pool of songs and randomly selects one whenever triggered!
+All soundtracks are loaded dynamically from **`music/`** (mirrored to **`static/music/`**). Each action has a pool of your tracks that randomly shuffles:
 
 ```
-static/
-└── music/
-    ├── start_camera_action.mp3  <-- Opening clapper audio
-    ├── entry.mp3                <-- Ramasami entrance
-    ├── raising_hand.mp3         <-- Spidy theme
-    ├── drinking_water.mp3       <-- Romantic sip
-    ├── sitting_down.mp3         <-- Mafia sit
-    ├── exit.mp3                 <-- Tragic exit
-    ├── track_victory.mp3        <-- Rocky victory
-    ├── track_shock.mp3          <-- Dramatic shock
-    ├── track_thinking.mp3       <-- Detective noir
-    ├── track_heart.mp3          <-- Heartfelt oath
-    ├── track_stand.mp3          <-- Epic standing
-    ├── hero.mp3, action.mp3, suspense.mp3, romance.mp3, tragedy.mp3
+music/
+├── start_camera_action.mp3  <-- Opening clapper audio
+├── ramasami.mp3             <-- Grand Entrance / Comedy Mass Beat
+├── spidy.mp3                <-- Spider-Man suspense
+├── Ladies and gentlement.mp3<-- Victory / Hype / Grand Announcement
+├── arkum tholkate.mp3       <-- Unbeatable Champion / Powerful Ascension
+├── meeshamadhavan.mp3       <-- Mustache Twirl / Heist Mastermind / Mafia Sit
+├── kattipudu.mp3            <-- Slow-Motion Romance / Emotional Heart
+├── neekolavalo.mp3          <-- Dramatic Plot Twist / Catchy Upbeat
+├── puthiyamukham.mp3        <-- Hero Arrival / Rising Power
+├── bg4.mp3                  <-- Tension / Suspense / Detective
+└── exit.mp3                 <-- Tragic & Comical Exit
 ```
 
 ### How to Add or Swap Songs:

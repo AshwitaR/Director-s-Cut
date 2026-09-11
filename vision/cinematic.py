@@ -5,7 +5,7 @@ CINEMATIC_MODES = {
         "id": "ENTRY",
         "action": "ENTRY",
         "genre": "GRAND ENTRANCE",
-        "bgm_pool": ["entry.mp3", "hero.mp3"],
+        "bgm_pool": ["ramasami.mp3", "Ladies and gentlement.mp3", "meeshamadhavan.mp3"],
         "captions": [
             "A wild main character appeared!",
             "Who invited bro to the movie?",
@@ -21,7 +21,7 @@ CINEMATIC_MODES = {
         "id": "BOTH_HANDS_UP",
         "action": "BOTH HANDS UP",
         "genre": "WORLD CHAMPION VICTORY",
-        "bgm_pool": ["track_victory.mp3", "hero.mp3"],
+        "bgm_pool": ["arkum tholkate.mp3", "Ladies and gentlement.mp3", "puthiyamukham.mp3"],
         "captions": [
             "HE'S THE CHAMPION OF THE WORLD!",
             "Rocky training montage unlocked.",
@@ -36,7 +36,7 @@ CINEMATIC_MODES = {
         "id": "RAISING_HAND",
         "action": "RAISING HAND",
         "genre": "SPIDER-MAN SUSPENSE",
-        "bgm_pool": ["raising_hand.mp3", "suspense.mp3"],
+        "bgm_pool": ["spidy.mp3", "puthiyamukham.mp3", "bg4.mp3"],
         "captions": [
             "Bro thinks he has web-shooters.",
             "Spider-Man stretch activated.",
@@ -51,7 +51,7 @@ CINEMATIC_MODES = {
         "id": "HANDS_ON_HEAD",
         "action": "HANDS ON HEAD",
         "genre": "EXISTENTIAL SHOCK",
-        "bgm_pool": ["track_shock.mp3", "suspense.mp3"],
+        "bgm_pool": ["neekolavalo.mp3", "bg4.mp3", "spidy.mp3"],
         "captions": [
             "MIND = COMPLETELY BLOWN.",
             "Bro just remembered he left the stove on.",
@@ -66,7 +66,7 @@ CINEMATIC_MODES = {
         "id": "THINKING",
         "action": "THINKING",
         "genre": "DETECTIVE NOIR",
-        "bgm_pool": ["track_thinking.mp3", "suspense.mp3"],
+        "bgm_pool": ["meeshamadhavan.mp3", "bg4.mp3", "ramasami.mp3"],
         "captions": [
             "The Thinker has entered the chat.",
             "Solving the world's problems right here.",
@@ -81,7 +81,7 @@ CINEMATIC_MODES = {
         "id": "DRINKING_WATER",
         "action": "DRINKING WATER",
         "genre": "SLOW-MOTION ROMANCE",
-        "bgm_pool": ["drinking_water.mp3", "romance.mp3"],
+        "bgm_pool": ["kattipudu.mp3", "neekolavalo.mp3"],
         "captions": [
             "Taking a sip like he's in a cologne commercial.",
             "Hydrated and unnecessarily dramatic.",
@@ -96,7 +96,7 @@ CINEMATIC_MODES = {
         "id": "HAND_ON_HEART",
         "action": "HAND ON HEART",
         "genre": "DRAMATIC ALLEGIANCE",
-        "bgm_pool": ["track_heart.mp3", "romance.mp3"],
+        "bgm_pool": ["kattipudu.mp3", "arkum tholkate.mp3", "Ladies and gentlement.mp3"],
         "captions": [
             "An emotional allegiance to the cinematic arts.",
             "Feel the sheer, unbridled sincerity.",
@@ -111,7 +111,7 @@ CINEMATIC_MODES = {
         "id": "STANDING_UP",
         "action": "STANDING UP",
         "genre": "HERO ASCENSION",
-        "bgm_pool": ["track_stand.mp3", "action.mp3"],
+        "bgm_pool": ["puthiyamukham.mp3", "arkum tholkate.mp3", "meeshamadhavan.mp3"],
         "captions": [
             "HE HAS RISEN.",
             "Standing up like a superhero in the third act.",
@@ -126,7 +126,7 @@ CINEMATIC_MODES = {
         "id": "SITTING_DOWN",
         "action": "SITTING DOWN",
         "genre": "MAIN CHARACTER ENERGY",
-        "bgm_pool": ["sitting_down.mp3", "hero.mp3"],
+        "bgm_pool": ["meeshamadhavan.mp3", "ramasami.mp3", "Ladies and gentlement.mp3"],
         "captions": [
             "Bro sat down like a mafia boss.",
             "Chair secured. Zero regrets.",
@@ -141,7 +141,7 @@ CINEMATIC_MODES = {
         "id": "EXIT",
         "action": "EXIT",
         "genre": "TRAGIC FAREWELL",
-        "bgm_pool": ["exit.mp3", "tragedy.mp3"],
+        "bgm_pool": ["exit.mp3", "bg4.mp3", "ramasami.mp3"],
         "captions": [
             "And bro just dipped.",
             "Gone. Reduced to atoms.",
@@ -158,5 +158,5 @@ def get_cinematic_scene(action_name):
     """Maps an action to its cinematic package with random shuffled music & comical caption."""
     mode_data = CINEMATIC_MODES.get(action_name, CINEMATIC_MODES["SITTING_DOWN"]).copy()
     mode_data["caption"] = random.choice(mode_data["captions"])
-    mode_data["bgm"] = random.choice(mode_data.get("bgm_pool", ["entry.mp3"]))
+    mode_data["bgm"] = random.choice(mode_data.get("bgm_pool", ["ramasami.mp3"]))
     return mode_data
