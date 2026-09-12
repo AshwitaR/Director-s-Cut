@@ -10,9 +10,8 @@
 
 
 ### Team Members
-- Team Lead: Abhirami P - College of Engineering Chengannur (CEC)
+- Member 1: Abhirami P - College of Engineering Chengannur (CEC)
 - Member 2: Ashwita Rajesh - College of Engineering Chengannur (CEC)
-- Member 3: Not applicable
 
 ### Project Description
 Director's Cut watches you through your webcam and detects simple everyday actions like sitting, drinking water, or raising your hand. It then gives those completely normal moments some unnecessary movie-level drama with music, captions, and visual effects.
