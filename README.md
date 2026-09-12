@@ -15,13 +15,13 @@
 - Member 3: Not applicable
 
 ### Project Description
-Director's Cut is a local web application that monitors a webcam feed and detects everyday human actions using computer vision. It automatically transforms these actions into dramatic movie moments with matching background music, visual effects, and comedic captions.
+Director's Cut watches you through your webcam and detects simple everyday actions like sitting, drinking water, or raising your hand. It then gives those completely normal moments some unnecessary movie-level drama with music, captions, and visual effects.
 
 ### The Problem (that doesn't exist)
-Everyday actions like entering a room, drinking water, raising a hand, or sitting down happen without any cinematic drama, background music, or unnecessary main-character energy.
+Normal life is simply not dramatic enough. Why should sitting down, drinking water, or walking into a room happen without a background score and a little main-character energy?
 
 ### The Solution (that nobody asked for)
-Director's Cut uses real-time computer vision to detect everyday actions through a webcam and automatically triggers cinematic music, visual effects, and comedic captions for each action, turning completely ordinary moments into unnecessarily dramatic movie scenes.
+We made Director's Cut to fix this extremely important non-problem. It detects what you're doing through the webcam and automatically turns it into a mini movie scene with dramatic music, captions, and visual effects. Because apparently, even drinking water needs a soundtrack.
 
 ## Technical Details
 ### Technologies/Components Used
@@ -61,8 +61,8 @@ Webcam video frame → MediaPipe Pose Landmarker → Geometric action classifica
 
 ### Project Demo
 # Video
-[Add your demo video link here]
-*Explain what the video demonstrates*
+https://drive.google.com/drive/folders/10gT9FmS-SQeeIw5DIqtEGWQmCdAGwALl?usp=drive_link
+Demonstrates how everyday actions are detected and turned into automatically generated cinematic moments with music, captions, and visual effects.
 
 
 ## Team Contributions
