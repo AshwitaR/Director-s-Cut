@@ -1,107 +1,75 @@
-# 🎬 DIRECTOR'S CUT
-> **Turn ordinary moments into movie scenes.**  
-> *Warning: unnecessary drama may occur.*
+<img width="1280" height="640" alt="git (1)" src="https://github.com/user-attachments/assets/8920b256-2ba8-4988-b824-5351134eb4bd" />
 
-Director's Cut is a local web application built for hackathons. It watches a person through their webcam, recognizes predefined human actions using computer vision (MediaPipe Pose), and automatically turns those ordinary actions into cinematic movie scenes with background music, dynamic captions, visual effects, and meme reactions.
 
----
 
-## 🎭 The 10 Cinematic Actions
+# Director's Cut 🎯
 
-The application automatically identifies 10 distinct actions using geometric MediaPipe Pose tracking and triggers their cinematic treatment with your 10 custom BGMs in mixed form and comical captions:
 
-1. **`ENTRY`** ➔ **Grand Entrance**  
-   *Music pool:* `ramasami.mp3`, `Ladies and gentlement.mp3`, `meeshamadhavan.mp3`  
-   *Captions:* "A wild main character appeared!", "Main character aura: 1000%."
-2. **`BOTH HANDS UP`** ➔ **World Champion Victory**  
-   *Music pool:* `arkum tholkate.mp3`, `Ladies and gentlement.mp3`, `puthiyamukham.mp3`  
-   *Captions:* "HE'S THE CHAMPION OF THE WORLD!", "Rocky training montage unlocked."
-3. **`RAISING HAND`** ➔ **Spider-Man Theme / Suspense**  
-   *Music pool:* `spidy.mp3`, `puthiyamukham.mp3`, `bg4.mp3`  
-   *Captions:* "Bro thinks he has web-shooters.", "Spider-Man stretch activated."
-4. **`HANDS ON HEAD`** ➔ **Existential Shock / Plot Twist**  
-   *Music pool:* `neekolavalo.mp3`, `bg4.mp3`, `spidy.mp3`  
-   *Captions:* "MIND = COMPLETELY BLOWN.", "Bro just remembered he left the stove on."
-5. **`THINKING`** ➔ **Detective Noir / Mastermind**  
-   *Music pool:* `meeshamadhavan.mp3`, `bg4.mp3`, `ramasami.mp3`  
-   *Captions:* "The Thinker has entered the chat.", "Brain cells operating at 110% capacity."
-6. **`DRINKING WATER`** ➔ **Slow-Motion Romance**  
-   *Music pool:* `kattipudu.mp3`, `neekolavalo.mp3`  
-   *Captions:* "Taking a sip like he's in a cologne commercial.", "Hydrated and unnecessarily dramatic."
-7. **`HAND ON HEART`** ➔ **Dramatic Allegiance / Oath**  
-   *Music pool:* `kattipudu.mp3`, `arkum tholkate.mp3`, `Ladies and gentlement.mp3`  
-   *Captions:* "An emotional allegiance to the cinematic arts.", "Pledging loyalty to the snack cabinet."
-8. **`STANDING UP`** ➔ **Hero Ascension (Act 3)**  
-   *Music pool:* `puthiyamukham.mp3`, `arkum tholkate.mp3`, `meeshamadhavan.mp3`  
-   *Captions:* "HE HAS RISEN.", "Standing up like a superhero in the third act."
-9. **`SITTING DOWN`** ➔ **Main Character Energy / Mafia Boss**  
-   *Music pool:* `meeshamadhavan.mp3`, `ramasami.mp3`, `Ladies and gentlement.mp3`  
-   *Captions:* "Bro sat down like a mafia boss.", "Chair secured. Zero regrets."
-10. **`EXIT`** ➔ **Tragic Farewell / Ghosted**  
-    *Music pool:* `exit.mp3`, `bg4.mp3`, `ramasami.mp3`  
-    *Captions:* "And bro just dipped.", "Gone. Reduced to atoms."
+## Basic Details
+### Team Name: Eridians
 
----
 
-## 🎬 Opening Clapper & Film-Reel Loader
-- When you click **`START MY MOVIE`**, a spinning golden film-reel loader appears and plays **`start_camera_action.mp3`** ("Camera... rolling... and ACTION!").
-- The stage smoothly unveils exactly when the clapper audio finishes!
+### Team Members
+- Team Lead: Abhirami P - College of Engineering Chengannur (CEC)
+- Member 2: Ashwita Rajesh - College of Engineering Chengannur (CEC)
+- Member 3: Not applicable
 
----
+### Project Description
+Director's Cut is a local web application that monitors a webcam feed and detects everyday human actions using computer vision. It automatically transforms these actions into dramatic movie moments with matching background music, visual effects, and comedic captions.
 
-## 🎵 Your 10 Custom Soundtracks in Mixed Form
+### The Problem (that doesn't exist)
+Everyday actions like entering a room, drinking water, raising a hand, or sitting down happen without any cinematic drama, background music, or unnecessary main-character energy.
 
-All soundtracks are loaded dynamically from **`music/`** (mirrored to **`static/music/`**). Each action has a pool of your tracks that randomly shuffles:
+### The Solution (that nobody asked for)
+Director's Cut uses real-time computer vision to detect everyday actions through a webcam and automatically triggers cinematic music, visual effects, and comedic captions for each action, turning completely ordinary moments into unnecessarily dramatic movie scenes.
 
-```
-music/
-├── start_camera_action.mp3  <-- Opening clapper audio
-├── ramasami.mp3             <-- Grand Entrance / Comedy Mass Beat
-├── spidy.mp3                <-- Spider-Man suspense
-├── Ladies and gentlement.mp3<-- Victory / Hype / Grand Announcement
-├── arkum tholkate.mp3       <-- Unbeatable Champion / Powerful Ascension
-├── meeshamadhavan.mp3       <-- Mustache Twirl / Heist Mastermind / Mafia Sit
-├── kattipudu.mp3            <-- Slow-Motion Romance / Emotional Heart
-├── neekolavalo.mp3          <-- Dramatic Plot Twist / Catchy Upbeat
-├── puthiyamukham.mp3        <-- Hero Arrival / Rising Power
-├── bg4.mp3                  <-- Tension / Suspense / Detective
-└── exit.mp3                 <-- Tragic & Comical Exit
-```
+## Technical Details
+### Technologies/Components Used
+For Software:
+- Python, JavaScript, HTML5, CSS3
+- Flask
+- MediaPipe, OpenCV, NumPy
+- Git, Modern Web Browser, Web Audio API, MediaDevices API
 
-### How to Add or Swap Songs:
-1. Simply drop your MP3 files into `static/music/` using any of the names above.
-2. Or add more file names into `CINEMATIC_MODES[...]["bgm_pool"]` in `vision/cinematic.py` to shuffle among as many songs as you want!
-3. Cache-busting (`?t=timestamp`) is built into the frontend, so new audio files play immediately without needing to clear browser cache.
+For Hardware:
+- Standard PC/Laptop with webcam
+- Built-in or external webcam
+- No additional hardware tools required
 
----
-
-## 🚀 Quickstart Guide
-
-### 1. Run the Application
-In your terminal, run:
+### Implementation
+For Software:
+# Installation
 ```bash
-./.venv/bin/python app.py
+git clone <repository-url>
+cd Directors_cut
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
 ```
+# Run
+python app.py
 
-### 2. Open in Browser
-Visit **`http://127.0.0.1:5050`** in Chrome, Safari, Edge, or Firefox.  
-*(Note: Port 5050 avoids macOS AirPlay Receiver conflicts on port 5000).*
+### Project Documentation
+For Software:
 
-### 3. Experience the Movie
-1. Click **`START MY MOVIE`** and hear the clapperboard count down: *"Camera... and ACTION!"*
-2. Walk onto set to trigger your **`ENTRY`** (`ramasami.mp3` or heroic anthem).
-3. Try different actions:
-   - Put **Both Hands Up** in victory 🏆
-   - **Raise Hand** like Spider-Man 🕸️ (`spidy.mp3`)
-   - Grab your temples for **Shock / Mind Blown** 😱
-   - Rest your chin on your hand to **Think** 🤔
-   - Take a sip of water for a **Romantic Sip** 💧
-   - Place a hand over your chest for **Hand on Heart** ❤️
-   - **Stand Up** or **Sit Down** 🎬
-   - Step out of the frame for the **Tragic Exit** 🚪
-4. Click **`STOP MOVIE`** anytime to turn off your camera and return to the home screen.
+# Screenshots (Add at least 3)
+https://drive.google.com/drive/folders/1dKf7AJ6vDZBVPGPDCENTmCEj9oKyRj-A?usp=drive_link
+
+# Diagrams
+Webcam video frame → MediaPipe Pose Landmarker → Geometric action classification → Temporal stabilization → Flask API → Browser audio and visual effects
+
+
+### Project Demo
+# Video
+[Add your demo video link here]
+*Explain what the video demonstrates*
+
+
+## Team Contributions
+Equal Contributions
 
 ---
+Made with ❤️ at TinkerHub Useless Projects 
 
-## 🛠️ Developer Diagnostics
-- Press **`Ctrl + Shift + D`** on your keyboard while on set to view live FPS, latency, confidence, cooldown timers, and skeleton overlay.
+![Static Badge](https://img.shields.io/badge/TinkerHub-24?color=%23000000&link=https%3A%2F%2Fwww.tinkerhub.org%2F)
+![Static Badge](https://img.shields.io/badge/UselessProjects--26-26?link=https%3A%2F%2Ftinkerhub.org%2Fevents%2F1M8ORET9A1%2Fuseless-projects-3.0)
