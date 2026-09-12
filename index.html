@@ -1,1 +1,2027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Director's Cut | Hackathon Development Log</title>
+
+    <style>
+        /* =========================================================
+           DIRECTOR'S CUT - HACKATHON DEVELOPMENT LOG
+           Team Eridians
+           TinkerHub Useless Projects
+           ========================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(120, 20, 20, 0.18), transparent 32%),
+                radial-gradient(circle at bottom right, rgba(70, 50, 130, 0.15), transparent 35%),
+                #080808;
+            color: #f4f4f4;
+            line-height: 1.7;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Film grain */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.035;
+            z-index: 999;
+            background-image:
+                repeating-radial-gradient(
+                    circle at 0 0,
+                    transparent 0,
+                    rgba(255,255,255,0.8) 1px,
+                    transparent 2px
+                );
+            background-size: 7px 7px;
+        }
+
+        /* =========================================================
+           TOP PROGRESS BAR
+           ========================================================= */
+
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, #ffcc70, #ff8177, #cf70ff);
+            z-index: 1000;
+            box-shadow: 0 0 12px rgba(255, 129, 119, 0.65);
+        }
+
+        /* =========================================================
+           HERO
+           ========================================================= */
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 60px 20px;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 950px;
+        }
+
+        .small-label {
+            display: inline-block;
+            padding: 8px 16px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 50px;
+            color: #cfcfcf;
+            font-size: 0.82rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            background: rgba(255,255,255,0.04);
+        }
+
+        .hero h1 {
+            font-size: clamp(3.6rem, 10vw, 8rem);
+            line-height: 0.95;
+            letter-spacing: -4px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            background: linear-gradient(
+                90deg,
+                #ffffff,
+                #ffdf9b,
+                #ff9f8b,
+                #ffffff
+            );
+            background-size: 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleGlow 7s linear infinite;
+        }
+
+        @keyframes titleGlow {
+            0% {
+                background-position: 0%;
+            }
+            100% {
+                background-position: 300%;
+            }
+        }
+
+        .hero h2 {
+            font-size: clamp(1.1rem, 3vw, 1.7rem);
+            font-weight: 400;
+            color: #bcbcbc;
+            margin-bottom: 28px;
+        }
+
+        .hero-quote {
+            max-width: 680px;
+            margin: 0 auto 35px auto;
+            color: #e8e8e8;
+            font-size: 1.05rem;
+            font-style: italic;
+        }
+
+        .team-line {
+            margin-top: 20px;
+            color: #a8a8a8;
+            font-size: 0.95rem;
+        }
+
+        .team-line strong {
+            color: #fff;
+        }
+
+        .scroll-button {
+            display: inline-block;
+            margin-top: 35px;
+            padding: 13px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: #111;
+            background: #f3f3f3;
+            font-weight: 700;
+            transition: 0.25s ease;
+        }
+
+        .scroll-button:hover {
+            transform: translateY(-3px);
+            background: #ffdd91;
+        }
+
+        .clapper {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: clapperBounce 2.5s ease-in-out infinite;
+        }
+
+        @keyframes clapperBounce {
+            0%, 100% {
+                transform: rotate(-5deg) translateY(0);
+            }
+            50% {
+                transform: rotate(5deg) translateY(-8px);
+            }
+        }
+
+        /* =========================================================
+           LOADING STRIP
+           ========================================================= */
+
+        .loading-section {
+            max-width: 950px;
+            margin: -80px auto 100px;
+            padding: 25px;
+        }
+
+        .loading-card {
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.045);
+            backdrop-filter: blur(12px);
+            border-radius: 22px;
+            padding: 28px;
+        }
+
+        .loading-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .loading-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+        }
+
+        .loading-percentage {
+            color: #ffcf75;
+            font-family: monospace;
+        }
+
+        .loading-bar {
+            width: 100%;
+            height: 12px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 50px;
+            overflow: hidden;
+        }
+
+        .loading-fill {
+            width: 94%;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(
+                90deg,
+                #ffcc70,
+                #ff8177,
+                #cf70ff
+            );
+            animation: loadPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes loadPulse {
+            0%, 100% {
+                filter: brightness(0.85);
+            }
+            50% {
+                filter: brightness(1.25);
+            }
+        }
+
+        .loading-message {
+            margin-top: 15px;
+            color: #aaa;
+            font-size: 0.93rem;
+            font-family: monospace;
+        }
+
+        /* =========================================================
+           GENERAL SECTION
+           ========================================================= */
+
+        .section {
+            max-width: 1050px;
+            margin: 0 auto;
+            padding: 80px 25px;
+        }
+
+        .section-label {
+            color: #ffcb74;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 18px;
+            line-height: 1.1;
+        }
+
+        .section-intro {
+            color: #adadad;
+            max-width: 720px;
+            margin-bottom: 50px;
+        }
+
+        /* =========================================================
+           INTRO CARDS
+           ========================================================= */
+
+        .intro-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .intro-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 18px;
+            padding: 25px;
+            min-height: 170px;
+            transition: transform 0.25s ease, border 0.25s ease;
+        }
+
+        .intro-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 205, 112, 0.45);
+        }
+
+        .intro-card .emoji {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+
+        .intro-card h3 {
+            margin-bottom: 8px;
+        }
+
+        .intro-card p {
+            color: #aaa;
+            font-size: 0.93rem;
+        }
+
+        /* =========================================================
+           TIMELINE
+           ========================================================= */
+
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 24px;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                #ffcf77,
+                #f27f72,
+                #9d7cff,
+                rgba(255,255,255,0.1)
+            );
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 75px;
+            margin-bottom: 36px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 13px;
+            top: 24px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #111;
+            border: 5px solid #ffcf77;
+            box-shadow: 0 0 18px rgba(255,207,119,0.35);
+        }
+
+        .timeline-card {
+            background: rgba(255,255,255,0.045);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 27px;
+            transition: 0.25s ease;
+        }
+
+        .timeline-card:hover {
+            transform: translateX(4px);
+            background: rgba(255,255,255,0.065);
+        }
+
+        .time {
+            display: inline-block;
+            color: #ffcf77;
+            font-family: monospace;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .timeline-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .timeline-card p {
+            color: #b4b4b4;
+            margin-bottom: 10px;
+        }
+
+        .timeline-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        .tag-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+
+        .tag {
+            font-size: 0.73rem;
+            padding: 6px 10px;
+            border-radius: 50px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.09);
+            color: #c9c9c9;
+        }
+
+        .meme-note {
+            margin-top: 15px;
+            padding: 14px 16px;
+            border-left: 3px solid #ffcf77;
+            background: rgba(255,207,119,0.05);
+            color: #d9d9d9;
+            font-style: italic;
+            border-radius: 0 10px 10px 0;
+        }
+
+        /* =========================================================
+           DOCUMENTATION LORE
+           ========================================================= */
+
+        .lore-box {
+            max-width: 900px;
+            margin: 40px auto;
+            border-radius: 24px;
+            padding: 35px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,193,105,0.08),
+                    rgba(126,91,255,0.05)
+                );
+        }
+
+        .lore-box h3 {
+            font-size: 2rem;
+            margin-bottom: 18px;
+        }
+
+        .lore-flow {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 26px 0;
+        }
+
+        .lore-step {
+            padding: 10px 16px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .arrow {
+            color: #ffcf77;
+            font-weight: bold;
+        }
+
+        .lore-box p {
+            color: #b8b8b8;
+        }
+
+        /* =========================================================
+           CHAOS METER
+           ========================================================= */
+
+        .chaos-box {
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.04);
+            border-radius: 24px;
+            padding: 35px;
+        }
+
+        .chaos-row {
+            margin-bottom: 25px;
+        }
+
+        .chaos-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .chaos-row-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .meter {
+            height: 10px;
+            background: rgba(255,255,255,0.07);
+            border-radius: 50px;
+            overflow: hidden;
+        }
+
+        .meter-fill {
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, #ffcf77, #ff8376);
+        }
+
+        .m1 { width: 42%; }
+        .m2 { width: 83%; }
+        .m3 { width: 96%; }
+        .m4 { width: 100%; }
+
+        /* =========================================================
+           STATUS GRID
+           ========================================================= */
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            max-width: 850px;
+        }
+
+        .status-item {
+            padding: 18px 20px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .status-name {
+            color: #e4e4e4;
+        }
+
+        .status-symbol {
+            font-size: 1.1rem;
+        }
+
+        /* =========================================================
+           CAT / STICKER SECTION
+           ========================================================= */
+
+        .sticker-row {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 45px;
+        }
+
+        .sticker {
+            width: 170px;
+            min-height: 145px;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: #e8e3d5;
+            color: #151515;
+            border-radius: 8px;
+            transform: rotate(-2deg);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+            transition: 0.25s ease;
+        }
+
+        .sticker:nth-child(2) {
+            transform: rotate(3deg);
+        }
+
+        .sticker:nth-child(3) {
+            transform: rotate(-4deg);
+        }
+
+        .sticker:hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+
+        .sticker-emoji {
+            font-size: 3rem;
+        }
+
+        .sticker p {
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-top: 10px;
+            line-height: 1.3;
+        }
+
+        /* =========================================================
+           FINAL SCENE
+           ========================================================= */
+
+        .final-scene {
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 70px 20px;
+        }
+
+        .final-inner {
+            max-width: 850px;
+        }
+
+        .final-scene .big {
+            font-size: clamp(3rem, 8vw, 6.5rem);
+            line-height: 1;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+        }
+
+        .final-scene p {
+            color: #b5b5b5;
+            max-width: 650px;
+            margin: 0 auto 15px;
+        }
+
+        .final-time {
+            margin-top: 30px;
+            display: inline-block;
+            padding: 12px 18px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            font-family: monospace;
+            color: #ffcf77;
+        }
+
+        /* =========================================================
+           FOOTER
+           ========================================================= */
+
+        footer {
+            border-top: 1px solid rgba(255,255,255,0.09);
+            padding: 45px 20px;
+            text-align: center;
+            color: #747474;
+            font-size: 0.85rem;
+        }
+
+        footer strong {
+            color: #d5d5d5;
+        }
+
+        /* =========================================================
+           RESPONSIVE
+           ========================================================= */
+
+        @media (max-width: 800px) {
+
+            .hero h1 {
+                letter-spacing: -2px;
+            }
+
+            .intro-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .status-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-item {
+                padding-left: 62px;
+            }
+
+            .timeline::before {
+                left: 18px;
+            }
+
+            .timeline-dot {
+                left: 7px;
+            }
+
+            .lore-flow {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .arrow {
+                transform: rotate(90deg);
+                margin-left: 20px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Scroll progress -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+
+    <!-- =========================================================
+         HERO
+         ========================================================= -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="clapper">🎬</div>
+
+            <div class="small-label">
+                TinkerHub Useless Projects • Behind The Scenes
+            </div>
+
+            <h1>
+                Director's Cut
+            </h1>
+
+            <h2>
+                Hackathon Development Log
+            </h2>
+
+            <p class="hero-quote">
+                From “this is actually a cool idea” to
+                “why are we debugging this at 2:30 in the morning?”
+            </p>
+
+            <p class="team-line">
+                A production by <strong>Team Eridians</strong><br>
+                Abhirami P × Ashwita Rajesh
+            </p>
+
+            <a href="#story" class="scroll-button">
+                Enter the chaos ↓
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         LOADING BAR
+         ========================================================= -->
+
+    <section class="loading-section">
+
+        <div class="loading-card">
+
+            <div class="loading-header">
+
+                <div class="loading-title">
+                    Loading Director's Cut...
+                </div>
+
+                <div class="loading-percentage">
+                    94%
+                </div>
+
+            </div>
+
+            <div class="loading-bar">
+                <div class="loading-fill"></div>
+            </div>
+
+            <div class="loading-message" id="loadingMessage">
+                Initializing questionable decisions...
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         INTRO
+         ========================================================= -->
+
+    <section class="section" id="story">
+
+        <div class="section-label">
+            Production Notes
+        </div>
+
+        <h2 class="section-title">
+            So... how did we get here?
+        </h2>
+
+        <p class="section-intro">
+            Director's Cut started as a fun useless idea:
+            what if completely normal human actions received the
+            unnecessary cinematic treatment they clearly never asked for?
+            Somewhere between setup errors, song hunting, dinner,
+            Musical Night, AI tools and documentation confusion,
+            it slowly became an actual project.
+        </p>
+
+
+        <div class="intro-grid">
+
+            <div class="intro-card">
+                <div class="emoji">💡</div>
+                <h3>The Idea</h3>
+                <p>
+                    Detect everyday actions through a webcam and
+                    automatically turn them into dramatic movie moments.
+                </p>
+            </div>
+
+            <div class="intro-card">
+                <div class="emoji">💻</div>
+                <h3>The Engineering</h3>
+                <p>
+                    Computer vision, a web interface, action detection,
+                    automatic music, captions and cinematic visual effects.
+                </p>
+            </div>
+
+            <div class="intro-card">
+                <div class="emoji">🫠</div>
+                <h3>The Reality</h3>
+                <p>
+                    Installation issues, too many song choices,
+                    documentation plot twists and approximately zero
+                    respect for the concept of sleeping early.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         TIMELINE
+         ========================================================= -->
+
+    <section class="section">
+
+        <div class="section-label">
+            The Timeline
+        </div>
+
+        <h2 class="section-title">
+            The making of Director's Cut
+        </h2>
+
+        <p class="section-intro">
+            A completely professional and definitely well-planned timeline
+            of how our hackathon actually went.
+        </p>
+
+
+        <div class="timeline">
+
+
+            <!-- EVENT 1 -->
+
+            <div class="timeline-item">
+
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-card">
+
+                    <span class="time">
+                        Before 6:30 PM
+                    </span>
+
+                    <h3>
+                        Scene 00 — The Inauguration
+                    </h3>
+
+                    <p>
+                        Before we could begin building anything, the event
+                        officially started with the inauguration.
+                    </p>
+
+                    <p>
+                        We had an idea, two laptops, a rough plan and the
+                        unreasonable confidence every hackathon begins with.
+                        At this point, everything still felt extremely manageable.
+                    </p>
+
+                    <div class="tag-row">
+                        <span class="tag">optimism</span>
+                        <span class="tag">project idea ready</span>
+                        <span class="tag">sleep schedule still alive</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- EVENT 2 -->
+
+            <div class="timeline-item">
+
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-card">
+
+                    <span class="time">
+                        Around 6:30 – 6:45 PM
+                    </span>
+
+                    <h3>
+                        Scene 01 — And... Action!
+                    </h3>
+
+                    <p>
+                        The actual hackathon development began somewhere
+                        around 6:30–6:45 PM.
+                    </p>
+
+                    <p>
+                        Director's Cut officially entered production.
+                        The goal was simple: take ordinary human actions
+                        and give them absolutely unnecessary cinematic drama.
+                    </p>
+
+                    <div class="meme-note">
+                        Estimated difficulty at this point:
+                        “yeah, we can definitely finish this.”
+                    </div>
+
+                    <div class="tag-row">
+                        <span class="tag">hackathon begins</span>
+                        <span class="tag">main character energy</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- EVENT 3 -->
+
+            <div class="timeline-item">
+
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-card">
+
+                    <span class="time">
+                        First plot twist
+                    </span>
+
+                    <h3>
+                        Scene 02 — The MacBook Incident
+                    </h3>
+
+                    <p>
+                        Abhirami had already installed the required setup
+                        on her MacBook before coming to the event.
+                    </p>
+
+                    <p>
+                        Naturally, once we actually needed it...
+                        it decided not to work properly.
+                    </p>
+
+                    <p>
+                        We spent almost half an hour trying to figure out
+                        what was wrong before finally creating a separate
+                        folder and reinstalling the required things again.
+                    </p>
+
+                    <p>
+                        Eventually, the system cooperated and development
+                        could continue.
+                    </p>
+
+                    <div class="meme-note">
+                        First 30 minutes of development:
+                        mostly developing patience.
+                    </div>
+
+                    <div class="tag-row">
+                        <span class="tag">MacBook</span>
+                        <span class="tag">installation arc</span>
+                        <span class="tag">30 minutes gone</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- EVENT 4 -->
+
+            <div class="timeline-item">
+
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-card">
+
+                    <span class="time">
+                        The original plan
+                    </span>
+
+                    <h3>
+                        Scene 03 — “Let's Just Code It Manually”
+                    </h3>
+
+                    <p>
+                        Our first plan was pretty straightforward.
+                    </p>
+
+                    <p>
+                        We would manually create the project files,
+                        write the code ourselves and use GitHub Copilot
+                        as assistance while coding.
+                    </p>
+
+                    <p>
+                        Very responsible.
+                        Very organised.
+                        Very temporary.
+                    </p>
+
+                    <p>
+                        We started with that approach, but the project
+                        slowly began demanding more things than just code.
+                    </p>
+
+                    <div class="tag-row">
+                        <span class="tag">VS Code</span>
+                        <span class="tag">GitHub Copilot</span>
+                        <span class="tag">manual coding</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- EVENT 5 -->
+
+            <div class="timeline-item">
+
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-card">
+
+                    <span class="time">
+                        Shortly after
+                    </span>
+
+                    <h3>
+                        Scene 04 — The Music Problem
+                    </h3>
+
+                    <p>
+                        Director's Cut was never going to work with
+                        boring default sounds.
+                    </p>
+
+                    <p>
+                        Different actions needed different cinematic moods,
+                        which meant we had to actually sit down and decide
+                        which songs or background tracks would fit each scene.
+                    </p>
+
+                    <p>
+                        Somehow, choosing music for someone drinking water
+                        became a legitimate development task.
+                    </p>
+
+                    <div class="meme-note">
+                        Software engineering, but half the meeting is
+                        “wait... this song would be funnier.”
+                    </div>
+
+                    <div class="tag-row">
+                        <span class="tag">BGM</span>
+                        <span class="tag">song selection</span>
+                        <span class="tag">important research obviously</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- EVENT 6 -->
+
+            <div class="timeline-item">
+
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-card">
+
+                    <span class="time">
+                        Meanwhile
+                    </span>
+
+                    <h3>
+                        Scene 05 — Meme Department Opens
+                    </h3>
+
+                    <p>
+                        Music alone was not enough.
+                    </p>
+
+                    <p>
+                        Director's Cut also needed captions,
+                        reaction images and memes that could appear
+                        when actions were detected.
+                    </p>
+
+                    <p>
+                        So naturally, part of our hackathon became
+                        two people seriously discussing which meme
+                        best represents someone performing an extremely
+                        normal action.
+                    </p>
+
+                    <div class="tag-row">
+                        <span class="tag">memes</span>
+                        <span class="tag">captions</span>
+                        <span class="tag">cinematic nonsense</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- EVENT 7 -->
+
+            <div class="timeline-item">
+
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-card">
+
+                    <span class="time">
+                        Dinner break
+                    </span>
+
+                    <h3>
+                        Scene 06 — Food.exe
+                    </h3>
+
+                    <p>
+                        Development temporarily paused for an essential
+                        system update.
+                    </p>
+
+                    <p>
+                        Food.exe was running.
+                    </p>
+
+                    <p>
+                        No debugging happened.
+                        No action detection happened.
+                        We ate.
+                    </p>
+
+                    <div class="meme-note">
+                        Productivity: paused.<br>
+                        Hunger: resolved.<br>
+                        Regrets: none.
+                    </div>
+
+                    <div class="tag-row">
+                        <span class="tag">dinner</span>
+                        <span class="tag">necessary dependency</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- EVENT 8 -->
+
+            <div class="timeline-item">
+
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-card">
+
+                    <span class="time">
+                        Evening
+                    </span>
+
+                    <h3>
+                        Scene 07 — Musical Night Intermission
+                    </h3>
+
+                    <p>
+                        Then came Musical Night.
+                    </p>
+
+                    <p>
+                        Did we have a project to complete?
+                        Yes.
+                    </p>
+
+                    <p>
+                        Did we still go?
+                        Also yes.
+                    </p>
+
+                    <p>
+                        Director's Cut briefly entered intermission
+                        because apparently we had musical priorities.
+                    </p>
+
+                    <div class="meme-note">
+                        Project status: unfinished.<br>
+                        Vibes: maintained.
+                    </div>
+
+                    <div class="tag-row">
+                        <span class="tag">musical night</span>
+                        <span class="tag">intermission</span>
+                        <span class="tag">lmao</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- EVENT 9 -->
+
+            <div class="timeline-item">
+
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-card">
+
+                    <span class="time">
+                        After dinner + Musical Night
+                    </span>
+
+                    <h3>
+                        Scene 08 — The Antigravity Arc
+                    </h3>
+
+                    <p>
+                        When we returned, it became clear that manually
+                        managing every part of the project while also
+                        working on the content, music and documentation
+                        was becoming difficult.
+                    </p>
+
+                    <p>
+                        So we changed strategy.
+                    </p>
+
+                    <p>
+                        We decided to move development to Google Antigravity
+                        so we could manage the application more efficiently.
+                    </p>
+
+                    <p>
+                        Ashwita already had Antigravity set up.
+                        Abhirami did not.
+                    </p>
+
+                    <p>
+                        Which meant another installation side quest.
+                        Around 15 more minutes disappeared into setup.
+                    </p>
+
+                    <div class="meme-note">
+                        New strategy unlocked:
+                        work smarter because the clock is starting
+                        to look suspicious.
+                    </div>
+
+                    <div class="tag-row">
+                        <span class="tag">Antigravity</span>
+                        <span class="tag">strategy change</span>
+                        <span class="tag">+15 min setup</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- EVENT 10 -->
+
+            <div class="timeline-item">
+
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-card">
+
+                    <span class="time">
+                        Later into the night
+                    </span>
+
+                    <h3>
+                        Scene 09 — Meme & Music Crisis, Part II
+                    </h3>
+
+                    <p>
+                        Development continued, but the extremely serious
+                        question of which songs, reactions and captions
+                        belonged to each action was still alive.
+                    </p>
+
+                    <p>
+                        We kept refining the experience while the actual
+                        application was being built around it.
+                    </p>
+
+                    <p>
+                        Somewhere along the way, the boundary between
+                        “software development” and “making a meme compilation
+                        with computer vision” became very thin.
+                    </p>
+
+                    <div class="tag-row">
+                        <span class="tag">audio</span>
+                        <span class="tag">memes again</span>
+                        <span class="tag">UI</span>
+                        <span class="tag">computer vision</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- EVENT 11 -->
+
+            <div class="timeline-item">
+
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-card">
+
+                    <span class="time">
+                        Documentation side quest
+                    </span>
+
+                    <h3>
+                        Scene 10 — The Loading Page Lore
+                    </h3>
+
+                    <p>
+                        Then came one of the most confusing parts of
+                        the entire hackathon:
+                        figuring out what exactly a “loading page” meant.
+                    </p>
+
+                    <p>
+                        At first, we were told to document the progress
+                        in an Excel sheet.
+                    </p>
+
+                    <p>
+                        Okay. Spreadsheet. Fine.
+                    </p>
+
+                    <p>
+                        Then the plan apparently changed to Microsoft Word.
+                    </p>
+
+                    <p>
+                        Also fine.
+                    </p>
+
+                    <p>
+                        And then we finally learned that the actual requirement
+                        was to create a completely separate Git branch named
+                        <strong>docs</strong>, create an
+                        <strong>index.html</strong> inside it,
+                        and turn that into a creative documentation page.
+                    </p>
+
+                    <div class="meme-note">
+                        Excel → Word → Git branch → HTML.<br><br>
+                        Character development.
+                    </div>
+
+                    <div class="tag-row">
+                        <span class="tag">Excel?</span>
+                        <span class="tag">Word?</span>
+                        <span class="tag">docs branch ✓</span>
+                        <span class="tag">index.html ✓</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- EVENT 12 -->
+
+            <div class="timeline-item">
+
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-card">
+
+                    <span class="time">
+                        Around 2:30 AM
+                    </span>
+
+                    <h3>
+                        Scene 11 — Still Loading...
+                    </h3>
+
+                    <p>
+                        At around 2:30 in the morning, the project
+                        was still not completely finished.
+                    </p>
+
+                    <p>
+                        There were still things to integrate,
+                        things to test, and probably at least one thing
+                        that would decide not to work the moment someone
+                        came to see the demo.
+                    </p>
+
+                    <p>
+                        But honestly, that's basically every hackathon.
+                    </p>
+
+                    <p>
+                        Somehow everything always comes together
+                        at the last possible minute.
+                    </p>
+
+                    <div class="meme-note">
+                        Current strategy:
+                        keep going until it either works or becomes morning.
+                    </div>
+
+                    <div class="tag-row">
+                        <span class="tag">2:30 AM</span>
+                        <span class="tag">still coding</span>
+                        <span class="tag">sleep pending</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- EVENT 13 -->
+
+            <div class="timeline-item">
+
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-card">
+
+                    <span class="time">
+                        Final stretch
+                    </span>
+
+                    <h3>
+                        Scene 12 — Putting the Movie Together
+                    </h3>
+
+                    <p>
+                        Piece by piece, Director's Cut started behaving
+                        like an actual application instead of a collection
+                        of ideas scattered across laptops.
+                    </p>
+
+                    <p>
+                        The webcam could feed the system,
+                        actions could be analysed,
+                        the interface could react,
+                        and our completely unnecessary cinematic universe
+                        finally started taking shape.
+                    </p>
+
+                    <p>
+                        Was the problem useful?
+                        Absolutely not.
+                    </p>
+
+                    <p>
+                        Was building it fun?
+                        Very much yes.
+                    </p>
+
+                    <div class="tag-row">
+                        <span class="tag">integration</span>
+                        <span class="tag">testing</span>
+                        <span class="tag">almost there</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         DOCUMENTATION LORE SPECIAL SECTION
+         ========================================================= -->
+
+    <section class="section">
+
+        <div class="section-label">
+            Special Episode
+        </div>
+
+        <h2 class="section-title">
+            The documentation plot twist
+        </h2>
+
+        <div class="lore-box">
+
+            <h3>
+                How the “loading page” evolved
+            </h3>
+
+            <p>
+                One of the funniest parts of the night was discovering
+                that our understanding of the documentation requirement
+                had gone through several software updates.
+            </p>
+
+            <div class="lore-flow">
+
+                <div class="lore-step">
+                    📊 Excel Sheet
+                </div>
+
+                <span class="arrow">→</span>
+
+                <div class="lore-step">
+                    📄 Microsoft Word
+                </div>
+
+                <span class="arrow">→</span>
+
+                <div class="lore-step">
+                    🌿 New Git Branch
+                </div>
+
+                <span class="arrow">→</span>
+
+                <div class="lore-step">
+                    💻 index.html
+                </div>
+
+                <span class="arrow">→</span>
+
+                <div class="lore-step">
+                    🎬 This Page
+                </div>
+
+            </div>
+
+            <p>
+                Eventually, we got there.
+                The loading page turned out to be much more fun than
+                the spreadsheet we originally thought we were supposed
+                to make, so maybe the plot twist worked out.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         CHAOS METER
+         ========================================================= -->
+
+    <section class="section">
+
+        <div class="section-label">
+            Completely Scientific Analytics
+        </div>
+
+        <h2 class="section-title">
+            Hackathon chaos meter
+        </h2>
+
+        <p class="section-intro">
+            Measurements collected using extremely advanced technology
+            known as “we were there.”
+        </p>
+
+
+        <div class="chaos-box">
+
+            <div class="chaos-row">
+
+                <div class="chaos-row-top">
+                    <span>Confidence at 6:45 PM</span>
+                    <span>42%</span>
+                </div>
+
+                <div class="meter">
+                    <div class="meter-fill m1"></div>
+                </div>
+
+            </div>
+
+
+            <div class="chaos-row">
+
+                <div class="chaos-row-top">
+                    <span>Time spent choosing music</span>
+                    <span>83%</span>
+                </div>
+
+                <div class="meter">
+                    <div class="meter-fill m2"></div>
+                </div>
+
+            </div>
+
+
+            <div class="chaos-row">
+
+                <div class="chaos-row-top">
+                    <span>Documentation confusion</span>
+                    <span>96%</span>
+                </div>
+
+                <div class="meter">
+                    <div class="meter-fill m3"></div>
+                </div>
+
+            </div>
+
+
+            <div class="chaos-row">
+
+                <div class="chaos-row-top">
+                    <span>Likelihood of finishing everything last minute</span>
+                    <span>100%</span>
+                </div>
+
+                <div class="meter">
+                    <div class="meter-fill m4"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         STATUS
+         ========================================================= -->
+
+    <section class="section">
+
+        <div class="section-label">
+            Production Status
+        </div>
+
+        <h2 class="section-title">
+            Where things stood during the night
+        </h2>
+
+        <p class="section-intro">
+            Somewhere between “we have this” and
+            “okay why is that not working now?”
+        </p>
+
+
+        <div class="status-grid">
+
+            <div class="status-item">
+                <span class="status-name">Project idea</span>
+                <span class="status-symbol">✅</span>
+            </div>
+
+            <div class="status-item">
+                <span class="status-name">Development environment</span>
+                <span class="status-symbol">✅</span>
+            </div>
+
+            <div class="status-item">
+                <span class="status-name">Web interface</span>
+                <span class="status-symbol">✅</span>
+            </div>
+
+            <div class="status-item">
+                <span class="status-name">Webcam integration</span>
+                <span class="status-symbol">✅</span>
+            </div>
+
+            <div class="status-item">
+                <span class="status-name">Computer vision</span>
+                <span class="status-symbol">🔄</span>
+            </div>
+
+            <div class="status-item">
+                <span class="status-name">Action detection</span>
+                <span class="status-symbol">🔄</span>
+            </div>
+
+            <div class="status-item">
+                <span class="status-name">Music selection</span>
+                <span class="status-symbol">🎵</span>
+            </div>
+
+            <div class="status-item">
+                <span class="status-name">Meme selection</span>
+                <span class="status-symbol">🐈</span>
+            </div>
+
+            <div class="status-item">
+                <span class="status-name">Loading page</span>
+                <span class="status-symbol">✅</span>
+            </div>
+
+            <div class="status-item">
+                <span class="status-name">Sleep</span>
+                <span class="status-symbol">❌</span>
+            </div>
+
+        </div>
+
+
+        <div class="sticker-row">
+
+            <div class="sticker">
+                <div class="sticker-emoji">🐈‍⬛</div>
+                <p>
+                    me watching the code run after changing nothing
+                </p>
+            </div>
+
+            <div class="sticker">
+                <div class="sticker-emoji">🐱💻</div>
+                <p>
+                    extremely qualified software engineers at 2 AM
+                </p>
+            </div>
+
+            <div class="sticker">
+                <div class="sticker-emoji">😼🎵</div>
+                <p>
+                    choosing the soundtrack was obviously critical infrastructure
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         THINGS WE LEARNED
+         ========================================================= -->
+
+    <section class="section">
+
+        <div class="section-label">
+            What We Learned
+        </div>
+
+        <h2 class="section-title">
+            Somehow, actual lessons happened too
+        </h2>
+
+        <div class="intro-grid">
+
+            <div class="intro-card">
+
+                <div class="emoji">🧩</div>
+
+                <h3>
+                    Plans Will Change
+                </h3>
+
+                <p>
+                    We began with one development workflow and eventually
+                    changed tools when the original plan stopped being practical.
+                </p>
+
+            </div>
+
+
+            <div class="intro-card">
+
+                <div class="emoji">⏱️</div>
+
+                <h3>
+                    Small Things Take Time
+                </h3>
+
+                <p>
+                    Setup, installations, choosing assets and fixing
+                    tiny issues can quietly consume a surprising amount
+                    of hackathon time.
+                </p>
+
+            </div>
+
+
+            <div class="intro-card">
+
+                <div class="emoji">🎬</div>
+
+                <h3>
+                    Useless Can Still Be Technical
+                </h3>
+
+                <p>
+                    The problem might be ridiculous, but building a system
+                    that reacts to real webcam input still requires
+                    actual engineering.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         FINAL SCENE
+         ========================================================= -->
+
+    <section class="final-scene">
+
+        <div class="final-inner">
+
+            <div class="small-label">
+                Final Scene
+            </div>
+
+            <h2 class="big">
+                The movie was still in production.
+            </h2>
+
+            <p>
+                At 2:30 AM, Director's Cut was not completely finished yet.
+                But the idea had gone from a random hackathon concept
+                to something we could actually see taking shape.
+            </p>
+
+            <p>
+                There were still bugs to fix,
+                actions to test,
+                music to adjust,
+                and probably a few last-minute surprises waiting for us.
+            </p>
+
+            <p>
+                Which, honestly, feels very on-brand for a hackathon.
+            </p>
+
+            <div class="final-time">
+                STATUS: THE FINAL SCENE IS STILL LOADING...
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         FOOTER
+         ========================================================= -->
+
+    <footer>
+
+        <p>
+            🎬 <strong>Director's Cut</strong>
+        </p>
+
+        <p>
+            Team Eridians • Abhirami P & Ashwita Rajesh
+        </p>
+
+        <p>
+            College of Engineering Chengannur
+        </p>
+
+        <br>
+
+        <p>
+            Made during TinkerHub Useless Projects.
+        </p>
+
+        <p>
+            Because apparently even drinking water deserves background music.
+        </p>
+
+    </footer>
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+         ========================================================= -->
+
+    <script>
+
+        // ---------------------------------------------------------
+        // Scroll progress bar
+        // ---------------------------------------------------------
+
+        const progressBar = document.getElementById("scrollProgress");
+
+        window.addEventListener("scroll", () => {
+
+            const scrollTop =
+                document.documentElement.scrollTop ||
+                document.body.scrollTop;
+
+            const scrollHeight =
+                document.documentElement.scrollHeight -
+                document.documentElement.clientHeight;
+
+            const progress =
+                (scrollTop / scrollHeight) * 100;
+
+            progressBar.style.width = progress + "%";
+
+        });
+
+
+        // ---------------------------------------------------------
+        // Rotating loading messages
+        // ---------------------------------------------------------
+
+        const loadingMessages = [
+            "Initializing questionable decisions...",
+            "Loading cinematic overreactions...",
+            "Searching for the perfect meme...",
+            "Pretending the deadline is not approaching...",
+            "Compiling main-character energy...",
+            "Checking whether food.exe finished successfully...",
+            "Recovering from Musical Night...",
+            "Installing one more thing...",
+            "Turning normal life into unnecessary cinema...",
+            "Final scene still rendering..."
+        ];
+
+        const messageElement =
+            document.getElementById("loadingMessage");
+
+        let messageIndex = 0;
+
+        setInterval(() => {
+
+            messageIndex =
+                (messageIndex + 1) %
+                loadingMessages.length;
+
+            messageElement.textContent =
+                loadingMessages[messageIndex];
+
+        }, 2500);
+
+
+        // ---------------------------------------------------------
+        // Small fade-in effect for timeline cards
+        // ---------------------------------------------------------
+
+        const cards =
+            document.querySelectorAll(
+                ".timeline-card, .intro-card, .chaos-box, .lore-box"
+            );
+
+        const observer =
+            new IntersectionObserver(
+                (entries) => {
+
+                    entries.forEach((entry) => {
+
+                        if (entry.isIntersecting) {
+
+                            entry.target.style.opacity = "1";
+                            entry.target.style.transform = "translateY(0)";
+
+                        }
+
+                    });
+
+                },
+                {
+                    threshold: 0.1
+                }
+            );
+
+
+        cards.forEach((card) => {
+
+            card.style.opacity = "0";
+            card.style.transform = "translateY(18px)";
+            card.style.transition =
+                "opacity 0.6s ease, transform 0.6s ease";
+
+            observer.observe(card);
+
+        });
+
+    </script>
+
+</body>
+</html>
